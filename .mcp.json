@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "mp4-to-mp3": {
+      "command": "python",
+      "args": ["-m", "converter.mcp"],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mp4-to-mp3-converter"
+version = "1.0.0"
+description = "MP4 → MP3 конвертер: портативный GUI + CLI + MCP-сервер для ИИ-агентов. Нормализация громкости, шумоподавление, разбивка на дорожки. / Video-to-MP3 converter: portable GUI, CLI and MCP server for AI agents"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+authors = [{ name = "Софья Смирнова" }]
+keywords = ["mp4", "mp3", "converter", "ffmpeg", "audio-extract", "mcp", "model-context-protocol"]
+classifiers = [
+    "Environment :: Console",
+    "Environment :: X11 Applications",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Russian",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Multimedia :: Sound/Audio :: Conversion",
+]
+dependencies = []  # только стандартная библиотека
+
+[project.urls]
+Homepage = "https://damascus-ink.ru"
+Repository = "https://github.com/sky-magenta/mp4-to-mp3-converter"
+Changelog = "https://github.com/sky-magenta/mp4-to-mp3-converter/blob/main/CHANGELOG.md"
+Issues = "https://github.com/sky-magenta/mp4-to-mp3-converter/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+mcp = ["mcp>=1.2,<2"]
+
+[project.scripts]
+mp4tomp3 = "converter.cli:main"
+mp4tomp3-gui = "converter.gui:main"
+mp4-to-mp3-mcp = "converter.mcp_server:main"
+
+[tool.setuptools]
+packages = ["converter"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  exe:
+    # портативный exe прикладывается к GitHub Release
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyinstaller
+      - name: Сборка exe
+        run: >
+          python -m PyInstaller --noconfirm --onefile --windowed
+          --name "MP4-to-MP3" --icon "assets\icon.ico"
+          --add-data "assets\fonts;assets\fonts"
+          --add-data "assets\icon.ico;assets"
+          --add-data "assets\icon-256.png;assets"
+          --add-data "LICENSE;."
+          --add-data "LICENSE-VISUAL.md;."
+          gui.py
+      - name: Смоук exe
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath ".\dist\MP4-to-MP3.exe" -PassThru
+          Start-Sleep -Seconds 10
+          if ($p.HasExited) { throw "exe умер при старте" }
+          Stop-Process -Id $p.Id -Force
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/MP4-to-MP3.exe
+          generate_release_notes: true
+
+  pypi:
+    # публикация пакета (нужен секрет PYPI_API_TOKEN, иначе шаг пропускается)
+    if: ${{ vars.PUBLISH_PYPI == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build
+      - run: python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}

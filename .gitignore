@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Инструменты Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+
+# ОС и редакторы
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# Секреты и локальное окружение
+.env
+.env.*
+
+# Сборка exe
+build/
+dist/
+*.spec
+
+# Скачанный ffmpeg и результаты
+bin/
+downloads/
+*.log
+
+# Следы запуска программы из репозитория (портативный режим)
+gui-settings.json
+mp4tomp3.log
+
+# Медиа, случайно попавшее в рабочую папку (все поддерживаемые форматы)
+*.mp3
+*.mp4
+*.m4v
+*.mov
+*.mkv
+*.avi
+*.webm
+*.ts
+*.mts
+*.m2ts
+*.wmv
+*.flv
+*.3gp
+*.ogv
+*.m4a
+*.wav
+*.aac
+*.flac
+*.exe

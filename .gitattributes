@@ -1,0 +1,10 @@
+# Windows batch требует CRLF, иначе cmd парсирует файл кусками
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+
+# Скрипты для Linux/macOS — только LF
+*.sh     text eol=lf
+*.command text eol=lf
+
+# Остальной текст — как решит git (autocrlf)
+*        text=auto
